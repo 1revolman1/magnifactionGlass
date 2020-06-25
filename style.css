@@ -1,0 +1,35 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  margin: 50px auto;
+}
+.wrapper img {
+  margin: 20px 0;
+  width: 500px;
+  height: auto;
+  object-fit: cover;
+}
+.magnification-block {
+  display: block;
+  position: absolute;
+  z-index: 100;
+  width: 100px;
+  height: 100px;
+  border: 3px solid black;
+  background: red;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.magnification-block img {
+  position: absolute;
+  object-fit: cover;
+  width: 100%;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
