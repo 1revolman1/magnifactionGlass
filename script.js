@@ -37,7 +37,6 @@ overEventForDiv = (img) => (event) => {
 };
 
 moveEventForMagnification = (img, img_copy, div, zoom, h, w) => (event) => {
-  console.log(event);
   if (glassOnImg(event, img, div)) {
     let cords = getCordsForTransform(event, img);
     let y = +cords.y.toFixed(1),
@@ -79,7 +78,6 @@ glassOnImg = (e, img, div) => {
   y = y - window.pageYOffset;
 
   if (y > 0 && x > 0 && x < img.offsetWidth && y < img.offsetHeight) {
-    console.log(true);
     return true;
   } else {
     return false;
