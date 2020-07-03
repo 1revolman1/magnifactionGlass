@@ -24,38 +24,34 @@ overEventForDiv = (img) => (event) => {
   div.style.left = `${event.pageX - h}px`;
   div.addEventListener(
     "mousemove",
-    moveEventForMagnification(img, img_copy, div, Zoom, h, w),
-    true
+    moveEventForMagnification(img, img_copy, div, Zoom, h, w)
   );
-  div.addEventListener(
-    "mouseleave",
-    function _listener(e) {
-      div.style.display = `none`;
-      div.removeEventListener(
-        "mousemove",
-        moveEventForMagnification(img, img_copy, div, Zoom, h, w)
-      );
-      div.remove();
-    },
-    true
-  );
+  div.addEventListener("mouseleave", function _listener(e) {
+    div.style.display = `none`;
+    div.removeEventListener(
+      "mousemove",
+      moveEventForMagnification(img, img_copy, div, Zoom, h, w)
+    );
+    div.remove();
+  });
 };
 
 moveEventForMagnification = (img, img_copy, div, zoom, h, w) => (event) => {
-  if (glassOnImg(event, img)) {
+  console.log(event);
+  if (glassOnImg(event, img, div)) {
     let cords = getCordsForTransform(event, img);
     let y = +cords.y.toFixed(1),
       x = +cords.x.toFixed(1);
     console.log("Top " + y, "Left " + x);
     div.style.top = `${event.pageY - w}px`;
     div.style.left = `${event.pageX - h}px`;
-    let top = y * zoom - w + 3;
-    if (top > 0) {
+    let top = y * zoom - w;
+    if (top >= 0) {
       top = 0 - top;
     } else {
       top = Math.abs(top);
     }
-    let left = x * zoom - h + 3;
+    let left = x * zoom - h;
     if (left > 0) {
       left = 0 - left;
     } else {
@@ -73,7 +69,7 @@ moveEventForMagnification = (img, img_copy, div, zoom, h, w) => (event) => {
   }
 };
 
-glassOnImg = (e, img) => {
+glassOnImg = (e, img, div) => {
   let x = 0,
     y = 0;
   let a = img.getBoundingClientRect();
@@ -82,11 +78,10 @@ glassOnImg = (e, img) => {
   x = x - window.pageXOffset;
   y = y - window.pageYOffset;
 
-  if (y > 0 && x > 0 && x < a.width && y < a.height) {
+  if (y > 0 && x > 0 && x < img.offsetWidth && y < img.offsetHeight) {
     console.log(true);
     return true;
   } else {
-    console.log(false);
     return false;
   }
 };
